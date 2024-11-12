@@ -2,6 +2,10 @@ const GAMEWITH_URL="https://img.gamewith.jp/article_tools/pokemon-tcg-pocket/gac
 card_nums = 20
 MAX_CARDNUM = 20
 csv_name = ""
+
+CARD_WIDTH = 272*2/3
+CARD_HEIGHT = 379*2/3
+
 // 画像表示関連
 document.addEventListener('DOMContentLoaded', function() {
 	const reset_button = document.getElementById('reset');
@@ -36,8 +40,8 @@ function showCards(csvLine){
 		var image = document.createElement('img');
 		image.src = GAMEWITH_URL+csvLine[0]+".png"
 		image.id = csvLine[0]+i
-		image.width = 272; // 横サイズ（px）
-		image.height = 379; // 横サイズ（px）
+		image.width = CARD_WIDTH; // 横サイズ（px）
+		image.height = CARD_HEIGHT; // 横サイズ（px）
 		image.addEventListener('click', imgClick);
 		content_area.appendChild(image);
 	}
@@ -70,7 +74,7 @@ function pushResetButton(){
 	removeAllImage()
 	card_nums=MAX_CARDNUM
 	showProbability(0)
-	showCards(csv_name)
+	loadCSV(csv_name)
 }
 
 //deckボタン
