@@ -66,7 +66,8 @@ function imgClick(e){
 function showProbability(num){
 	card_nums = card_nums + num
 	probability = (1/card_nums*100).toFixed(1) 
-	document.getElementById('probability').textContent = probability+"% "+probability*2+"% "
+	document.getElementById('probability').textContent = 
+		card_nums+"枚: "probability+"% "+probability*2+"% "
 }
 
 //restボタン
