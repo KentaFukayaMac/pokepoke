@@ -1,7 +1,10 @@
 const GAMEWITH_URL="https://img.gamewith.jp/article_tools/pokemon-tcg-pocket/gacha/"
+card_nums = 20
+MAX_CARDNUM = 20
 
 // 画像表示関連
 document.addEventListener('DOMContentLoaded', function() {
+	showProbability(0)
     fetch('card_list.csv')
         .then(response => response.text())
         .then(data => parseCSV(data));
@@ -37,5 +40,13 @@ function showCards(csvLine){
 function imgClick(e){
 	const id = e.target.getAttribute("id")
 	e.target.remove()
+	showProbability(-1)
 	console.log(id)
+}
+
+//確率表示
+function showProbability(num){
+	card_nums = card_nums + num
+	probability = (1/card_nums*100).toFixed(1) 
+	document.getElementById('probability').textContent = probability+"% "+probability*2+"% "
 }
