@@ -1,18 +1,18 @@
 const GAMEWITH_URL="https://img.gamewith.jp/article_tools/pokemon-tcg-pocket/gacha/"
 card_nums = 20
 MAX_CARDNUM = 20
-
+csv_name = ""
 // 画像表示関連
 document.addEventListener('DOMContentLoaded', function() {
-	showProbability(0)
-
-	const button = document.getElementById('button');
-	button.addEventListener('click', pushResetButton);
-	loadCSV()
+	const reset_button = document.getElementById('reset');
+	reset_button.addEventListener('click', pushResetButton);
+	const button = document.getElementsByClassName('deck');
+	for(i = 0 ; i < button.length; i++)
+		button[i].addEventListener('click', pushDeckButton);
 });
 
-function loadCSV() {
-	fetch('card_list.csv')
+function loadCSV(csv_name) {
+	fetch(csv_name)
 	    .then(response => response.text())
         .then(data => parseCSV(data));
 }
@@ -70,5 +70,24 @@ function pushResetButton(){
 	removeAllImage()
 	card_nums=MAX_CARDNUM
 	showProbability(0)
-	loadCSV()
+	showCards(csv_name)
+}
+
+//deckボタン
+function pushDeckButton(e){
+	removeAllImage()
+	card_nums=MAX_CARDNUM
+	showProbability(0)
+	csv_name=getCSVName(e.target.getAttribute("id"))
+	loadCSV(csv_name)
+}
+
+
+function getCSVName(name){
+	csv_name　= ""
+	if (name=="mewtwo")
+		csv_name = "card_list.csv"
+	else if (name=="pika")
+		csv_name = "card_list1.csv"
+	return csv_name
 }
